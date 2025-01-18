@@ -135,9 +135,6 @@ if /I "%deleteBloxstrap%"=="Y" (
 
 echo ----------
 echo Reinstalling Roblox commonly fixes a lot of problems.
-echo *******
-echo Warning, you will have to log in again after reinstalling.
-echo *******
 echo Do you want to reinstall Roblox? (Y/N)
 echo ----------
 set /p reinstallRoblox="Choice: "
