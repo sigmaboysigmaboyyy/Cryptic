@@ -62,6 +62,10 @@ echo ----------------------------------------
 curl -L %NET_FRAMEWORK% -o "%DOWNLOAD_DIR%\net48-installer.exe"
 echo net48-installer.exe downloaded.
 echo ----------------------------------------
+
+:: Clear the screen before displaying the logo
+cls
+
 :: Logo section
 echo +++======--=======++++++**
 echo +++====--:..:======++++***
@@ -91,6 +95,7 @@ echo ****************************************
 curl -L %WEBVIEW2% -o "%DOWNLOAD_DIR%\webview2-installer.exe"
 echo webview2-installer.exe downloaded.
 echo ----------------------------------------
+
 
 curl -L %NODEJS% -o "%DOWNLOAD_DIR%\nodejs-installer.msi"
 echo nodejs-installer.msi downloaded.
