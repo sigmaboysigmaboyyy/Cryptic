@@ -175,33 +175,48 @@ if /I "%openWebsite%"=="Y" (
     echo ----------------------------------------
 )
 
-echo Running system health checks...
+echo Running system health checks can take up to 30 minutes.
 
-echo Checking component store corruption...
-DISM /Online /Cleanup-Image /CheckHealth
-echo Component store corruption check completed.
+echo.
 
-echo Scanning component store for corruption...
-DISM /Online /Cleanup-Image /ScanHealth
-echo Component store corruption scan completed.
+set /p choice="Do you want to run system health checks and DNS flushing? (y/n): "
+if /i "%choice%"=="y" (
+    echo Restoring health and checking for component corruption is optional. Only proceed if you believe it's necessary or if there are corrupted files present. This process may take up to 30 minutes.
+    set /p confirm="Are you sure you want to wait that long? (y/n): "
+    if /i "%confirm%"=="y" (
+        echo Running system health checks...
+        echo Checking component store corruption...
+        DISM /Online /Cleanup-Image /CheckHealth
+        echo Component store corruption check completed.
+        
+        echo Scanning component store for corruption...
+        DISM /Online /Cleanup-Image /ScanHealth
+        echo Component store corruption scan completed.
+        
+        echo Verifying component store corruption...
+        DISM /Online /Cleanup-Image /VerifyHealth
+        echo Component store corruption verification completed.
+        
+        echo Restoring component store health...
+        DISM /Online /Cleanup-Image /RestoreHealth
+        echo Component store health restored.
 
-echo Verifying component store corruption...
-DISM /Online /Cleanup-Image /VerifyHealth
-echo Component store corruption verification completed.
-
-echo Restoring component store health...
-DISM /Online /Cleanup-Image /RestoreHealth
-echo Component store health restored.
-
-echo Running system file checker...
-sfc /scannow
-echo System file check completed.
-echo ========================================
-
-echo Flushing DNS...
-ipconfig /flushdns
-echo DNS cache flushed.
-echo ========================================
+        echo Running system file checker. This may take some time...
+        sfc /scannow
+        echo System file check completed.
+        echo ========================================
+        
+        echo Flushing DNS...
+        ipconfig /flushdns
+        echo DNS cache flushed.
+        echo ========================================
+    ) else (
+        echo Health checks and DNS flushing skipped.
+    )
+) else (
+    echo Skipping system health checks and DNS flushing.
+)
+pause
 
 :end
 cls
