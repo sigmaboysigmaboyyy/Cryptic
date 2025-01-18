@@ -186,38 +186,40 @@ if /I "%openWebsite%"=="Y" (
     echo ----------------------------------------
 )
 
+echo *******************************************************
 echo Running system health checks can take up to 30 minutes.
-
+echo *******************************************************
 echo.
 
 set /p choice="Do you want to run system health checks and DNS flushing? (y/n): "
 if /i "%choice%"=="y" (
     echo Restoring health and checking for component corruption is optional. Only proceed if you believe it's necessary or if there are corrupted files present. This process may take up to 30 minutes.
     set /p confirm="Are you sure you want to wait that long? (y/n): "
-    if /i "%confirm%"=="y" (
+    if /i "!confirm!"=="y" (
         echo Running system health checks...
-        echo Checking component store corruption...
+
+        echo Checking component store corruption. ***PLEASE WAIT...***
         DISM /Online /Cleanup-Image /CheckHealth
         echo Component store corruption check completed.
-        
-        echo Scanning component store for corruption...
+
+        echo Scanning component store for corruption. ***PLEASE WAIT...***
         DISM /Online /Cleanup-Image /ScanHealth
         echo Component store corruption scan completed.
-        
-        echo Verifying component store corruption...
+
+        echo Verifying component store corruption. ***PLEASE WAIT...***
         DISM /Online /Cleanup-Image /VerifyHealth
         echo Component store corruption verification completed.
-        
-        echo Restoring component store health...
+
+        echo Restoring component store health. ***PLEASE WAIT...***
         DISM /Online /Cleanup-Image /RestoreHealth
         echo Component store health restored.
 
-        echo Running system file checker. This may take some time...
+        echo Running system file checker. This may take some time. ***PLEASE WAIT...***
         sfc /scannow
         echo System file check completed.
         echo ========================================
         
-        echo Flushing DNS...
+        echo Flushing DNS. ***PLEASE WAIT...***
         ipconfig /flushdns
         echo DNS cache flushed.
         echo ========================================
@@ -228,23 +230,3 @@ if /i "%choice%"=="y" (
     echo Skipping system health checks and DNS flushing.
 )
 pause
-
-:end
-cls
-echo ************************************************************
-echo * MADE BY M1JP *
-echo ************************************************************
-echo * Thank you for your patience. This troubleshooter doesn't guarantee to solve problems by 100%. *
-echo ************************************************************
-echo * Would you like to reboot your PC now? (Y/N) *
-echo ************************************************************
-set /p rebootPC="Choice: "
-
-if /I "%rebootPC%"=="Y" (
-    echo Rebooting PC...
-    shutdown /r /t 0
-) else (
-    echo Skipping reboot.
-    echo Press Enter to continue.
-    pause >nul
-)
