@@ -245,6 +245,6 @@ if /I "%rebootPC%"=="Y" (
     shutdown /r /t 0
 ) else (
     echo Skipping reboot.
-    echo Press Enter to close.
+    echo Press Enter to continue.
     pause >nul
 )
