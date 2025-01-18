@@ -162,13 +162,13 @@ if /I "%installBloxstrap%"=="Y" (
 
 echo ----------
 echo Do you want to open the website to download the latest version of Cryptic? (Y/N)
-echo NOTE: You must download the latest version of Cryptic, as versions like 2.0.1 are unstable.
+echo NOTE: You must download the latest version of Cryptic (unless you're sure you have downloaded newest one)
 echo ----------
 set /p openWebsite="Choice: "
 
 if /I "%openWebsite%"=="Y" (
-    echo Opening https://getargon.xyz/ ...
-    start https://getargon.xyz/
+    echo Opening https://getcryptic.net/ ...
+    start https://getcryptic.net/
     echo ----------------------------------------
 ) else (
     echo Skipping website opening.
