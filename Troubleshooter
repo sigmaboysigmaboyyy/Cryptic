@@ -64,7 +64,7 @@ echo net48-installer.exe downloaded.
 echo ****************************************
 echo * THIS MAY TAKE UP TO 5 MINUTES OR MORE. PLEASE BE PATIENT. *
 echo ****************************************
-echo ----------------------------------------
+echo Please wait...
 
 curl -L %WEBVIEW2% -o "%DOWNLOAD_DIR%\webview2-installer.exe"
 echo webview2-installer.exe downloaded.
