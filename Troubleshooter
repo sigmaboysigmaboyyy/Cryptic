@@ -64,7 +64,7 @@ echo net48-installer.exe downloaded.
 echo ****************************************
 echo * THIS MAY TAKE UP TO 5 MINUTES OR MORE. PLEASE BE PATIENT. *
 echo ****************************************
-echo Please wait...
+echo ----------------------------------------
 
 curl -L %WEBVIEW2% -o "%DOWNLOAD_DIR%\webview2-installer.exe"
 echo webview2-installer.exe downloaded.
@@ -133,16 +133,30 @@ if /I "%deleteBloxstrap%"=="Y" (
     echo ----------------------------------------
 )
 
-echo [cryptic fixer] Fixing...
-del /q /s "%localappdata%\Roblox" >nul 2>&1
-del /q /s "%appdata%\Roblox" >nul 2>&1
-echo ----------------------------------------
+echo ----------
+echo Reinstalling Roblox commonly fixes a lot of problems.
+echo *******
+echo Warning, you will have to log in again after reinstalling.
+echo *******
+echo Do you want to reinstall Roblox? (Y/N)
+echo ----------
+set /p reinstallRoblox="Choice: "
 
-echo Installing Roblox...
-curl -L %ROBLOX_INSTALLER% -o "%DOWNLOAD_DIR%\RobloxInstaller.exe"
-start /wait "" "%DOWNLOAD_DIR%\RobloxInstaller.exe" /silent
-echo Roblox installed.
-echo ----------------------------------------
+if /I "%reinstallRoblox%"=="Y" (
+    echo [cryptic fixer] Fixing...
+    del /q /s "%localappdata%\Roblox" >nul 2>&1
+    del /q /s "%appdata%\Roblox" >nul 2>&1
+    echo ----------------------------------------
+
+    echo Installing Roblox...
+    curl -L %ROBLOX_INSTALLER% -o "%DOWNLOAD_DIR%\RobloxInstaller.exe"
+    start /wait "" "%DOWNLOAD_DIR%\RobloxInstaller.exe" /silent
+    echo Roblox installed.
+    echo ----------------------------------------
+) else (
+    echo Skipping Roblox reinstallation.
+    echo ----------------------------------------
+)
 
 echo ----------
 echo Do you want to install Bloxstrap on your PC? (Y/N)
